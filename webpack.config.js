@@ -59,8 +59,16 @@ module.exports = (env, argv) => {
                             loader: 'ng-annotate-loader',
                             options: {
                                 ngAnnotate: 'ng-annotate-patched',
-                                sourcemap: !isProd,
+                                sourcemap: !isProd
                             },
+                        },
+                        {
+                            loader: 'ts-loader',
+                            options: {
+                                configFile: sourcePath + '/tsconfig.app.json',
+                                // disable type checker - we will use it in fork plugin
+                                transpileOnly: true,
+                            }
                         }
                     ]
                 },
