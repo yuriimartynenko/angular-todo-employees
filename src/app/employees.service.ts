@@ -45,7 +45,7 @@ export class EmployeesService  implements OnInit {
         return deferred.promise;
     }
 
-    addEmployee(...body: string[]): void {
+    addEmployee(...body): void {
         const [ employee_name, employee_salary, employee_age ] = body;
         let idx: number | 0 = this.listEmployees.length ? parseInt(this.listEmployees[this.listEmployees.length-1].id) : 0;
         idx++;

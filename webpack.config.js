@@ -65,8 +65,6 @@ module.exports = (env, argv) => {
                         {
                             loader: 'ts-loader',
                             options: {
-                                configFile: sourcePath + '/tsconfig.app.json',
-                                // disable type checker - we will use it in fork plugin
                                 transpileOnly: true,
                             }
                         }
