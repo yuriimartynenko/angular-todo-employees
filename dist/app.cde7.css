@@ -1,0 +1,17 @@
+td.ng-scope {
+    width: 21%;
+    word-break: break-word;
+}
+
+.btn:disabled {
+    cursor: default;
+}
+
+.table {
+    color: #385773;
+}
+
+.input-table {
+    margin-top: -4px;
+    margin-bottom: -5px;
+}
