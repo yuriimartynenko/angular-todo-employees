@@ -47,8 +47,6 @@
     "webpack-dev-server": "3.10.2"
   },
   "dependencies": {
-    "@angular/cli": "^8.3.24",
-    "@angular/compiler-cli": "^8.2.14",
     "@fortawesome/fontawesome-free": "^5.12.0",
     "@uirouter/angularjs": "1.0.24",
     "angular": "^1.7.9",
@@ -57,20 +55,15 @@
     "eventemitter3": "4.0.0",
     "express": "^4.17.1",
     "path": "^0.12.7",
-    "popper.js": "^1.16.1",
-    "typescript": "^3.7.5"
+    "popper.js": "^1.16.1"
   },
   "scripts": {
     "prestart": "rimraf dist & copyfiles -f src/assets/* dist/",
     "start": "webpack-dev-server --mode=development --open",
     "prebuild": "npm run prestart",
-    "build": "webpack --mode=production --optimize-minimize --aot",
+    "build": "webpack --mode=production --optimize-minimize",
     "test": "karma start --single-run",
     "test:dev": "karma start --browsers Chrome",
     "clean-build": "rimraf dist & copyfiles -f src/index.html dist/ & copyfiles -f src/assets/* dist/assets & npm run webpack-prod"
-  },
-  "engines": {
-    "node": "10.15.3",
-    "npm": "6.4.1"
   }
 }
