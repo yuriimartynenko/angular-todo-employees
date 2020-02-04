@@ -1,0 +1,41 @@
+<nav class="navbar navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="#">{{active ? $ctrl.titleEmployee : $ctrl.title}}</a>
+        <form ng-class="{'d-none': active, 'form inline': !active}">
+            <button type="button" class="btn btn-danger cursor-default" ng-click="$ctrl.employeesService.deleteSelectedEmployees()" ng-disabled="!$ctrl.employeesService.selectCount">
+                <i class="fas fa-trash-alt"></i>
+                Delete
+                <span class="badge badge-pill badge-light text-danger">{{$ctrl.employeesService.selectCount}}</span>
+            </button>
+            <button type="button" class="btn btn-success ml-2" ng-click="active = !active">
+                <i class="fas fa-plus-circle"></i>
+                Add New Employee
+            </button>
+        </form>
+        <div ng-class="{'collapse show': active, 'collapse': !active}" id="collapseExample">
+            <form class="form-inline" name="myForm">
+                <div class="form-row">
+                    <input type="text" class="form-control mr-sm-2 mb-2 mb-lg-0" ng-model="$ctrl.employeeName" placeholder="Name" required>
+                    <input type="number" class="form-control mr-sm-2 mb-2 mb-lg-0" ng-model="$ctrl.employeeSalary" placeholder="Salary (USD)" required>
+                    <input type="number" class="form-control mr-sm-2 mb-2 mb-lg-0" ng-model="$ctrl.employeeAge" placeholder="Age" required>
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-success"
+                                ng-click="$ctrl.add($ctrl.employeeName, $ctrl.employeeSalary, $ctrl.employeeAge);
+                                $ctrl.employeeName=''; $ctrl.employeeSalary='';$ctrl.employeeAge=''"
+                                ng-disabled="myForm.$invalid"
+                        >
+                            <i class="fas fa-check-circle"></i>
+                            Add
+                        </button>
+                    </div>
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-danger" ng-click="active = !active">
+                            <i class="fas fa-times-circle"></i>
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</nav>
