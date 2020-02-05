@@ -1,5 +1,4 @@
-import { OnInit } from 'angular-ts-decorators';
-import { IHttpService, IQService} from 'angular';
+import { IHttpService, IQService } from 'angular';
 import { Injectable } from 'angular-ts-decorators';
 
 export interface IEmployee {
@@ -50,7 +49,7 @@ export class EmployeesService {
     }
 
     addEmployee(...body): void {
-        const [ employee_name, employee_salary, employee_age ] = body;
+        let [ employee_name, employee_salary, employee_age ] = body;
         let idx: number | 0 = this.listEmployees.length ? parseInt(this.listEmployees[this.listEmployees.length-1].id) : 0;
         idx++;
         this.listEmployees.push({ id: `${idx}`, employee_name, employee_salary, employee_age, selected: false });

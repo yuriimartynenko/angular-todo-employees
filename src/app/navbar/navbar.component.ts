@@ -9,12 +9,17 @@ export class NavbarComponent {
     title: string = 'Manage Employees';
     titleEmployee: string = 'Add New Employee';
     active: boolean = true;
+    employeeName: string = '';
+    employeeSalary: number;
+    employeeAge: number;
 
     constructor(private employeesService: EmployeesService) {}
 
-    add(name: string, salary: number, age: number): void {
-        if (!name || !salary || !age) { return; }
-        name = name.trim();
-        this.employeesService.addEmployee(name, salary, age);
+    add(employeeName: string, employeeSalary: number, employeeAge: number): void {
+        if (employeeName.trim() && employeeSalary && employeeAge) {
+            this.employeesService.addEmployee(employeeName, employeeSalary, employeeAge);
+        }
+        this.employeeName = '';
+        this.employeeSalary = this.employeeAge = undefined;
     }
 }
