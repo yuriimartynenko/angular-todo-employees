@@ -15,9 +15,9 @@ export class NavbarComponent {
 
     constructor(private employeesService: EmployeesService) {}
 
-    add(employeeName: string, employeeSalary: number, employeeAge: number): void {
-        if (employeeName.trim() && employeeSalary && employeeAge) {
-            this.employeesService.addEmployee(employeeName, employeeSalary, employeeAge);
+    add(): void {
+        if (this.employeeName.trim() && this.employeeSalary && this.employeeAge) {
+            this.employeesService.addEmployee(this.employeeName, this.employeeSalary, this.employeeAge);
         }
         this.employeeName = '';
         this.employeeSalary = this.employeeAge = undefined;
