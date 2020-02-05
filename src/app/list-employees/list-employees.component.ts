@@ -6,21 +6,15 @@ import { EmployeesService } from '../employees.service';
     template: require('./list-employees.component.html')
 })
 export class ListEmployeesComponent implements OnInit{
-    listEmployees = [];
 
     constructor(private employeesService: EmployeesService) {}
 
     ngOnInit() {
-        this.getEmployees().then();
+        this.getEmployees();
     }
 
     async getEmployees(): Promise<void> {
-        try {
-            const res = await this.employeesService.getListEmployees();
-            this.listEmployees = res.data;
-        } catch (e) {
-            console.error(e.message);
-        }
+        await this.employeesService.getListEmployees();
     }
 
 }

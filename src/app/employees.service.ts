@@ -1,17 +1,20 @@
 import { OnInit } from 'angular-ts-decorators';
-import { IHttpService, IQService } from 'angular';
+import { IHttpService, IQService} from 'angular';
 import { Injectable } from 'angular-ts-decorators';
 
-export interface IEmployee {
+interface IEmployee {
     id: string,
     employee_name: string,
     employee_salary: string,
     employee_age: string,
     selected?: boolean,
-    editing?: boolean,
-    oldName?: string,
-    oldSalary?: string,
-    oldAge?: string
+    editing?: boolean
+}
+
+interface IEmployeeEdit extends IEmployee{
+    oldName: string,
+    oldSalary: string,
+    oldAge: string
 }
 
 @Injectable('employeesService')
@@ -23,18 +26,22 @@ export class EmployeesService  implements OnInit {
 
     constructor(private $http: IHttpService, private $q: IQService) { }
 
-    ngOnInit(): void {
-        this.getListEmployees().then();
+    ngOnInit() {
+        this.getListEmployees();
     }
 
-    async getListEmployees(): Promise<any> {
+    async getListEmployees(): Promise<IEmployee[]> {
         const deferred = this.$q.defer<IEmployee[]>();
         try {
             this.isLoading = true;
             const response = await this.$http.get<any>('http://dummy.restapiexample.com/api/v1/employees');
-            const res = response.data;
+            let res = response.data;
             res.data.forEach(item => {
-                this.listEmployees.push({...item, selected: false, editing: false});
+                this.listEmployees.push({
+                    ...item,
+                    selected: false,
+                    editing: false
+                });
             });
             this.isLoading = false;
             deferred.resolve(response.data);
@@ -45,7 +52,7 @@ export class EmployeesService  implements OnInit {
         return deferred.promise;
     }
 
-    addEmployee(...body): void {
+    addEmployee(...body: string[]): void {
         const [ employee_name, employee_salary, employee_age ] = body;
         let idx: number | 0 = this.listEmployees.length ? parseInt(this.listEmployees[this.listEmployees.length-1].id) : 0;
         idx++;
@@ -96,7 +103,7 @@ export class EmployeesService  implements OnInit {
         }
     }
 
-    updateEmployee(employee: IEmployee): void {
+    updateEmployee(employee: IEmployeeEdit): void {
         const index = this.listEmployees.findIndex(empl => empl.id === employee.id);
         if (index > -1) {
             this.listEmployees[index] = employee;
@@ -104,12 +111,12 @@ export class EmployeesService  implements OnInit {
         employee.editing = false;
     }
 
-    editItem(employee: IEmployee): void {
+    editItem(employee: IEmployeeEdit): void {
         employee.editing = true;
         [employee.oldName, employee.oldSalary, employee.oldAge] = [employee.employee_name, employee.employee_salary, employee.employee_age];
     }
 
-    cancelEdit(employee: IEmployee): void {
+    cancelEdit(employee: IEmployeeEdit): void {
         employee.editing = false;
         [employee.employee_name, employee.employee_salary, employee.employee_age] = [employee.oldName, employee.oldSalary, employee.oldAge];
     }
