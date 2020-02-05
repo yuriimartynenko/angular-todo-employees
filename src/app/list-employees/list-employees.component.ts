@@ -5,7 +5,7 @@ import { EmployeesService } from '../employees.service';
     selector: 'app-list-employees',
     template: require('./list-employees.component.html')
 })
-export class ListEmployeesComponent implements OnInit{
+export class ListEmployeesComponent implements OnInit {
 
     constructor(private employeesService: EmployeesService) {}
 

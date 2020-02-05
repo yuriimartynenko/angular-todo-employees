@@ -65,6 +65,7 @@ module.exports = (env, argv) => {
                         {
                             loader: 'ts-loader',
                             options: {
+                                configFile: sourcePath + '/tsconfig.app.json',
                                 transpileOnly: true,
                             }
                         }

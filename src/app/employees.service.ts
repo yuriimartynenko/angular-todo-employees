@@ -2,7 +2,7 @@ import { OnInit } from 'angular-ts-decorators';
 import { IHttpService, IQService} from 'angular';
 import { Injectable } from 'angular-ts-decorators';
 
-interface IEmployee {
+export interface IEmployee {
     id: string,
     employee_name: string,
     employee_salary: string,
@@ -11,24 +11,21 @@ interface IEmployee {
     editing?: boolean
 }
 
-interface IEmployeeEdit extends IEmployee{
+export interface IEmployeeEdit extends IEmployee{
     oldName: string,
     oldSalary: string,
     oldAge: string
 }
 
 @Injectable('employeesService')
-export class EmployeesService  implements OnInit {
+export class EmployeesService {
     listEmployees: IEmployee[] = [];
     isLoading: boolean = false;
     selectCount: number = 0;
     isCheckboxAll: boolean = false;
 
+    /*@ngInject*/
     constructor(private $http: IHttpService, private $q: IQService) { }
-
-    ngOnInit() {
-        this.getListEmployees();
-    }
 
     async getListEmployees(): Promise<IEmployee[]> {
         const deferred = this.$q.defer<IEmployee[]>();
@@ -44,7 +41,7 @@ export class EmployeesService  implements OnInit {
                 });
             });
             this.isLoading = false;
-            deferred.resolve(response.data);
+            deferred.resolve(res.data);
         } catch (e) {
             console.error(e.message);
             deferred.reject(e);
@@ -52,7 +49,7 @@ export class EmployeesService  implements OnInit {
         return deferred.promise;
     }
 
-    addEmployee(...body: string[]): void {
+    addEmployee(...body): void {
         const [ employee_name, employee_salary, employee_age ] = body;
         let idx: number | 0 = this.listEmployees.length ? parseInt(this.listEmployees[this.listEmployees.length-1].id) : 0;
         idx++;
@@ -103,7 +100,7 @@ export class EmployeesService  implements OnInit {
         }
     }
 
-    updateEmployee(employee: IEmployeeEdit): void {
+    updateEmployee(employee: IEmployee): void {
         const index = this.listEmployees.findIndex(empl => empl.id === employee.id);
         if (index > -1) {
             this.listEmployees[index] = employee;
