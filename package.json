@@ -33,7 +33,7 @@
     "ng-annotate-loader": "^0.6.1",
     "ng-annotate-patched": "1.11.1",
     "ngtemplate-loader": "2.0.1",
-    "node-sass": "^4.13.1",
+    "node-sass": "^7.0.0",
     "resolve-url-loader": "3.1.1",
     "rimraf": "3.0.1",
     "style-loader": "1.1.3",
